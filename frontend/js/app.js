@@ -13,7 +13,7 @@ function App() {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState('');
 
-  const [loginForm, setLoginForm] = useState({ username: 'admin1', password: 'password123' });
+  const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [doctorForm, setDoctorForm] = useState({ name: '', specialty: '', department: '', contact_info: '' });
   const [patientForm, setPatientForm] = useState({ name: '', personal_info: '', doctor_id: '' });
   const [diagnosisForm, setDiagnosisForm] = useState({ icd_code: '', description: '', severity: '', patient_id: '' });
@@ -49,7 +49,7 @@ function App() {
     }
   };
 
-  useEffect(() => { refreshAll(); }, [token]);
+  useEffect(() => { refreshAll(); }, [token, role]);
 
   const login = async (e) => {
     e.preventDefault();
@@ -113,7 +113,7 @@ function App() {
       <div className="container">
         <div className="card">
           <h1>CareTrack TYBT Login</h1>
-          <p className="small">Demo users: admin1 / clinician1 / reception1 with password123</p>
+          <p className="small">Sign in with credentials configured by your deployment administrator.</p>
           <form onSubmit={login} className="grid">
             <input placeholder="Username" value={loginForm.username} onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })} />
             <input type="password" placeholder="Password" value={loginForm.password} onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })} />

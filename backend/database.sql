@@ -32,10 +32,5 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE INDEX IF NOT EXISTS idx_patients_doctor_id ON patients(doctor_id);
 CREATE INDEX IF NOT EXISTS idx_diagnoses_patient_id ON diagnoses(patient_id);
 
--- Demo users (password: password123)
-INSERT INTO users (username, password_hash, role)
-VALUES
-  ('admin1', '$2a$10$gOzzjPrxk1OHRSpkunOQBeSIlcv7iuuI/zdLuP/.iNClQhLQXP7VS', 'admin'),
-  ('clinician1', '$2a$10$gOzzjPrxk1OHRSpkunOQBeSIlcv7iuuI/zdLuP/.iNClQhLQXP7VS', 'clinician'),
-  ('reception1', '$2a$10$gOzzjPrxk1OHRSpkunOQBeSIlcv7iuuI/zdLuP/.iNClQhLQXP7VS', 'receptionist')
-ON CONFLICT (username) DO NOTHING;
+-- Create initial users with strong passwords via /api/auth/register as admin
+-- or by inserting secure bcrypt hashes in deployment automation.

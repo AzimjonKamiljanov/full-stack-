@@ -66,6 +66,7 @@ cd backend
 npm install
 # Configure PostgreSQL env vars and JWT_SECRET
 psql -d caretrack -f database.sql
+# Create a secure admin user (bcrypt hash) in users table
 npm start
 ```
 

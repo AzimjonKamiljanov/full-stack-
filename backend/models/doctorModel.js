@@ -1,12 +1,14 @@
 const db = require('../config/db');
+const { sanitizeSearchQuery } = require('../utils/search');
 
 const listDoctors = async ({ q }) => {
-  if (q) {
+  const searchQuery = sanitizeSearchQuery(q);
+  if (searchQuery) {
     const { rows } = await db.query(
       `SELECT * FROM doctors
        WHERE name ILIKE $1 OR specialty ILIKE $1 OR department ILIKE $1
        ORDER BY id DESC`,
-      [`%${q}%`]
+      [`%${searchQuery}%`]
     );
     return rows;
   }

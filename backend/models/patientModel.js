@@ -1,14 +1,16 @@
 const db = require('../config/db');
+const { sanitizeSearchQuery } = require('../utils/search');
 
 const listPatients = async ({ q }) => {
-  if (q) {
+  const searchQuery = sanitizeSearchQuery(q);
+  if (searchQuery) {
     const { rows } = await db.query(
       `SELECT p.*, d.name AS doctor_name
        FROM patients p
        LEFT JOIN doctors d ON d.id = p.doctor_id
        WHERE p.name ILIKE $1 OR COALESCE(p.personal_info, '') ILIKE $1 OR COALESCE(d.name, '') ILIKE $1
        ORDER BY p.id DESC`,
-      [`%${q}%`]
+      [`%${searchQuery}%`]
     );
     return rows;
   }
